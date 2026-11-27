@@ -1,0 +1,43 @@
+<Window x:Class="LumaVolumeControl.Windows.VisualizerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
+        xmlns:controls="clr-namespace:LumaVolumeControl.Controls"
+        Title="Luma Audio Visualizer" Width="920" Height="500" MinWidth="620" MinHeight="340"
+        WindowStyle="None" ResizeMode="CanResize" Background="#070A0F" ShowInTaskbar="True" Topmost="True"
+        PreviewKeyDown="Window_PreviewKeyDown" MouseMove="Window_MouseMove" MouseLeave="Window_MouseLeave" MouseDoubleClick="Window_MouseDoubleClick">
+    <shell:WindowChrome.WindowChrome><shell:WindowChrome CaptionHeight="0" ResizeBorderThickness="7" GlassFrameThickness="0" CornerRadius="0"/></shell:WindowChrome.WindowChrome>
+    <Border Background="#FB0B0E14" BorderBrush="#3B4254" BorderThickness="1" CornerRadius="20" Padding="1">
+        <Grid>
+            <controls:AudioVisualizerControl x:Name="VisualizerCanvas" Margin="2"/>
+            <Border x:Name="Toolbar" Panel.ZIndex="10" Height="64" VerticalAlignment="Top" Background="#F20D0F14" Opacity="0" IsHitTestVisible="False" RenderTransformOrigin="0.5,0">
+            <Border.RenderTransform><TranslateTransform x:Name="ToolbarShift" Y="-64"/></Border.RenderTransform>
+            <Grid Margin="20,0,12,0" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+                <Grid.ColumnDefinitions><ColumnDefinition Width="46"/><ColumnDefinition Width="*"/><ColumnDefinition Width="250"/><ColumnDefinition Width="44"/><ColumnDefinition Width="44"/></Grid.ColumnDefinitions>
+                <Border Width="38" Height="38" CornerRadius="12">
+                    <Border.Background><LinearGradientBrush StartPoint="0,0" EndPoint="1,1"><GradientStop Color="#8B6CFF"/><GradientStop Color="#40CEFF" Offset="1"/></LinearGradientBrush></Border.Background>
+                    <Viewbox Width="21" Height="17" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Path Data="M 1,4 C 4,1 7,7 10,4 C 13,1 16,7 19,4 M 1,10 C 4,7 7,13 10,10 C 13,7 16,13 19,10"
+                              Stroke="White" StrokeThickness="2" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
+                    </Viewbox>
+                </Border>
+                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                    <TextBlock Text="Luma Audio Visualizer" FontSize="16" FontWeight="SemiBold"/>
+                    <TextBlock Text="Windows出力をリアルタイム表示" FontSize="10" Foreground="#8993A5" Margin="0,3,0,0"/>
+                </StackPanel>
+                <ComboBox x:Name="ModeCombo" Grid.Column="2" Width="230" VerticalAlignment="Center" SelectionChanged="ModeCombo_SelectionChanged">
+                    <ComboBoxItem Content="ネオン・スペクトラム"/>
+                    <ComboBoxItem Content="スムーズ・ウェーブ"/>
+                    <ComboBoxItem Content="アナログ2連VU"/>
+                    <ComboBoxItem Content="VFDデジタルメーター"/>
+                    <ComboBoxItem Content="LEDステレオメーター"/>
+                    <ComboBoxItem Content="X-Yオシロスコープ"/>
+                </ComboBox>
+                <Button x:Name="TopmostButton" Grid.Column="3" Style="{StaticResource IconButton}" Content="◇" ToolTip="常に手前に表示" Click="Topmost_Click"/>
+                <Button Grid.Column="4" Style="{StaticResource CloseButton}" Content="×" ToolTip="閉じる" Click="Close_Click"/>
+            </Grid>
+
+            </Border>
+        </Grid>
+    </Border>
+</Window>
